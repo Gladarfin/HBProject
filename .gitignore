@@ -398,3 +398,12 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+assets/imgs/adolescence-edited.png
+assets/imgs/adulthood-edited.png
+assets/imgs/childhood-edited.png
+assets/imgs/eternal-yourth-edited.png
+assets/sounds/Shining Light audio.mp3
+src/example.html
+src/fireworkexample.html
+src/polaroid.html
+src/sound.html

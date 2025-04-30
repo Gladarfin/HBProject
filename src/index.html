@@ -1,236 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Interactive Birthday Card</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-        }
-        #card-container {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            background-size: cover;
-            transition: background-image 0.5s;
-        }
-        .present {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            cursor: pointer;
-            transition: transform 0.3s;
-            background-size: contain;
-            background-repeat: no-repeat;
-        }
-        .present:hover {
-            transform: scale(1.1);
-        }
-        #start-screen, #complete-screen {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0,0,0,0.7);
-            color: white;
-            text-align: center;
-        }
-        button {
-            padding: 15px 30px;
-            font-size: 20px;
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s;
-        }
-        button:hover {
-            background: #ff8e8e;
-            transform: scale(1.05);
-        }
-        #complete-screen {
-            display: none;
-        }
-        h1 {
-            font-size: 3em;
-            text-shadow: 2px 2px 4px #000;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 1.5em;
-            text-shadow: 1px 1px 2px #000;
-            max-width: 80%;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Happy Birthday!</title>
 </head>
 <body>
-    <div id="card-container">
-        <div id="start-screen">
-            <h1>Happy Birthday!</h1>
-            <p>Click the button to open your special card</p>
-            <button id="start-button">Open Card</button>
+    <div class="container">
+        <div class="main-screen">
+            <img src="/assets/imgs/background.png" class="bg-image">
         </div>
-        
-        <div id="complete-screen">
-            <h1>Happy Birthday!</h1>
-            <p>Hope you enjoyed your virtual presents!</p>
-            <button id="restart-button">Open Again</button>
+        <div class="childhood-image-container">
+            <img src="/assets/imgs/childhood-edited.png">
         </div>
-    </div>
+        <div class="adolescence-image-container">
+            <img src="/assets/imgs/adolescence-edited.png">
+        </div>
+        <div class="adulthood-image-container">
+            <img src="/assets/imgs/adulthood-edited.png">
+        </div>
+        <div class="etyourth-image-container">
+            <img src="/assets/imgs/eternal-yourth-edited.png">
+        </div>
+        <div class="presents">
+            <div class="green-present">
+                <img src="/assets/green-present.png">
+            </div>
+            <div class="orange-present">
+                <img src="/assets/imgs/orange-present.png">
+            </div>
+            <div class="violet-present">
+                <img src="/assets/imgs/violet-present.png">
+            </div>
+            <div class="red-present">
+                <img src="/assets/imgs/red-present.png">
+            </div>
+            <div class="multicolor-present">
+                <img src="/assets/imgs/multicolor-present.png">
+            </div>
+        </div>
 
-    <audio id="bg-music" loop>
-        <!-- Silent audio fallback with data URI -->
-        <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mpeg">
-    </audio>
+        <div class="story-container">
+            <div class="story-image"></div>
+            <div class="story-text" style="display: none;"></div>
+            <button class="next-button">=></button>
+        </div>
+        <div class="overlay"></div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elements
-            const cardContainer = document.getElementById('card-container');
-            const startScreen = document.getElementById('start-screen');
-            const completeScreen = document.getElementById('complete-screen');
-            const startButton = document.getElementById('start-button');
-            const restartButton = document.getElementById('restart-button');
-            const bgMusic = document.getElementById('bg-music');
-            
-            // Embedded images as data URIs (small placeholder images)
-            // In a real card, replace these with your actual images encoded as data URIs
-            const images = {
-                present1: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmMDAwMCIvPjxwYXRoIGQ9Ik0wIDUwTDEwMCA1ME01MCAwTDUwIDEwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjUiLz48L3N2Zz4=',
-                present2: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwMDBmZiIvPjxwYXRoIGQ9Ik0wIDUwTDEwMCA1ME01MCAwTDUwIDEwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjUiLz48L3N2Zz4=',
-                present3: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwZmYwMCIvPjxwYXRoIGQ9Ik0wIDUwTDEwMCA1ME01MCAwTDUwIDEwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjUiLz48L3N2Zz4=',
-                present4: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmMDBmZiIvPjxwYXRoIGQ9Ik0wIDUwTDEwMCA1ME01MCAwTDUwIDEwMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjUiLz48L3N2Zz4=',
-                bg1: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2VlZWVlZSIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjMDAwIj5CYWNrZ3JvdW5kIDE8L3RleHQ+PC9zdmc+',
-                bg2: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2RkZWVmZiIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjMDAwIj5CYWNrZ3JvdW5kIDI8L3RleHQ+PC9zdmc+',
-                bg3: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmZWVkZCIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjMDAwIj5CYWNrZ3JvdW5kIDM8L3RleHQ+PC9zdmc+',
-                bg4: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmZGRlZSIvPjx0ZXh0IHg9IjUwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjMDAwIj5CYWNrZ3JvdW5kIDQ8L3RleHQ+PC9zdmc+'
-            };
-            
-            // Game state
-            let presents = [];
-            let currentBackground = 0;
-            const backgrounds = [
-                `url('${images.bg1}')`,
-                `url('${images.bg2}')`,
-                `url('${images.bg3}')`,
-                `url('${images.bg4}')`
-            ];
-            
-            // Present positions (x%, y%)
-            const presentPositions = [
-                {x: 20, y: 30, type: 'present1'},
-                {x: 70, y: 40, type: 'present2'},
-                {x: 40, y: 60, type: 'present3'},
-                {x: 80, y: 20, type: 'present4'}
-            ];
-            
-            // Initialize the card
-            function initCard() {
-                // Clear any existing presents
-                presents.forEach(present => {
-                    if (present.element && present.element.parentNode) {
-                        present.element.parentNode.removeChild(present.element);
-                    }
-                });
-                presents = [];
-                
-                // Create presents
-                presentPositions.forEach((pos, index) => {
-                    const present = document.createElement('div');
-                    present.className = 'present';
-                    present.style.left = `${pos.x}%`;
-                    present.style.top = `${pos.y}%`;
-                    present.style.backgroundImage = `url('${images[pos.type]}')`;
-                    present.dataset.index = index;
-                    
-                    present.addEventListener('click', function() {
-                        openPresent(index);
-                    });
-                    
-                    cardContainer.appendChild(present);
-                    presents.push({
-                        element: present,
-                        opened: false
-                    });
-                });
-                
-                // Set initial background
-                currentBackground = 0;
-                cardContainer.style.backgroundImage = backgrounds[currentBackground];
-                
-                // Hide complete screen
-                completeScreen.style.display = 'none';
-            }
-            
-            // Open a present
-            function openPresent(index) {
-                if (presents[index].opened) return;
-                
-                presents[index].opened = true;
-                presents[index].element.style.display = 'none';
-                
-                // Change background
-                currentBackground = Math.min(currentBackground + 1, backgrounds.length - 1);
-                cardContainer.style.backgroundImage = backgrounds[currentBackground];
-                
-                // Play a sound effect (using Web Audio API as fallback)
-                playSound();
-                
-                // Check if all presents are opened
-                if (presents.every(p => p.opened)) {
-                    setTimeout(() => {
-                        completeScreen.style.display = 'flex';
-                    }, 1000);
-                }
-            }
-            
-            // Simple sound effect using Web Audio API
-            function playSound() {
-                try {
-                    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                    const oscillator = audioCtx.createOscillator();
-                    const gainNode = audioCtx.createGain();
-                    
-                    oscillator.type = 'triangle';
-                    oscillator.frequency.value = 800 + Math.random() * 400;
-                    gainNode.gain.value = 0.1;
-                    
-                    oscillator.connect(gainNode);
-                    gainNode.connect(audioCtx.destination);
-                    
-                    oscillator.start();
-                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-                    oscillator.stop(audioCtx.currentTime + 0.5);
-                } catch(e) {
-                    console.log('Web Audio not supported');
-                }
-            }
-            
-            // Event listeners
-            startButton.addEventListener('click', function() {
-                startScreen.style.display = 'none';
-                initCard();
-                // Try to play music (may be blocked by browser autoplay policies)
-                bgMusic.play().catch(e => {
-                    console.log('Autoplay prevented. User must interact first.');
-                    // Show a mute/unmute button in a real implementation
-                });
-            });
-            
-            restartButton.addEventListener('click', function() {
-                completeScreen.style.display = 'none';
-                initCard();
-            });
-            
-            // Initialize
-            initCard();
-        });
-    </script>
+
+        <script src="/src/script.js"></script>
 </body>
 </html>
