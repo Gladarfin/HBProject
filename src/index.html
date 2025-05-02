@@ -7,25 +7,47 @@
     <title>Happy Birthday!</title>
 </head>
 <body>
+    <div class="start-screen" id="startScreen">
+        <div class="start-content">
+            <!--button from here: https://codepen.io/ash_creator/pen/JjeExBe -->
+            <section class="section">
+                <a class="button button--A" id="startButton" href="#">
+                        <div class="glow_back"></div>
+                        <div class="glow_front"></div>
+                        <div class="twinkle_white"></div>
+                        <div class="twinkle_color"></div>
+                        <div class="reflection_top"></div>
+                        <div class="reflection_bottom"></div>
+                        <div class="shine"></div>
+                        <div class="shine_shadow_R"></div>
+                        <div class="shine_shadow_L"></div>
+                        <span class="text">ОТКРЫТЬ</span>
+                    </a>
+                </section>
+        </div>
+    </div>
+
+    <!-- Основной контент (изначально скрыт) -->
+    <div class="main-content hidden" id="mainContent">
     <div class="container">
         <div class="main-screen">
             <img src="/assets/imgs/background.png" class="bg-image">
         </div>
-        <div class="childhood-image-container">
-            <img src="/assets/imgs/childhood-edited.png">
+        <div class="childhood-image-container polaroid-container">
+            <img src="/assets/imgs/1a.png">
         </div>
-        <div class="adolescence-image-container">
-            <img src="/assets/imgs/adolescence-edited.png">
+        <div class="adolescence-image-container polaroid-container">
+            <img src="/assets/imgs/2a.png">
         </div>
-        <div class="adulthood-image-container">
-            <img src="/assets/imgs/adulthood-edited.png">
+        <div class="adulthood-image-container polaroid-container">
+            <img src="/assets/imgs/3a.png">
         </div>
-        <div class="etyourth-image-container">
-            <img src="/assets/imgs/eternal-yourth-edited.png">
+        <div class="etyourth-image-container polaroid-container">
+            <img src="/assets/imgs/4a.png">
         </div>
         <div class="presents">
             <div class="green-present">
-                <img src="/assets/green-present.png">
+                <img src="/assets/imgs/green-present.png">
             </div>
             <div class="orange-present">
                 <img src="/assets/imgs/orange-present.png">
@@ -44,11 +66,21 @@
         <div class="story-container">
             <div class="story-image"></div>
             <div class="story-text" style="display: none;"></div>
-            <button class="next-button">=></button>
+            <img src="/assets/imgs/next-arrow.png" class="next-arrow" alt="Next">
+            <img src="/assets/imgs/repeat-arrow.png" class="repeat-arrow" alt="Repeat">
         </div>
         <div class="overlay"></div>
 
-
+        <button class="sound-btn" id="soundBtn">
+            <div class="sound-icon"></div>
+        </button>
+    
+        <audio id="bgMusic" loop autoplay>
+            <source src="/assets/sounds/placeholder.mp3" type="audio/mpeg">
+            Ваш браузер не поддерживает аудио элемент.
+        </audio>
         <script src="/src/script.js"></script>
+    </div>
+    </div>
 </body>
 </html>
