@@ -37,7 +37,6 @@ function resetAll() {
     bgMusic.pause();
     localStorage.setItem('soundOn', 'false');
     
-    // 6. Показываем стартовый экран
     const startScreen = document.getElementById('startScreen');
     const mainContent = document.getElementById('mainContent');
     startScreen.style.display = 'flex';
